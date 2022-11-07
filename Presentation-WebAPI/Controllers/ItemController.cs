@@ -4,6 +4,7 @@ using StdCatalog.Application;
 using StdCatalog.Application.Items.Commands.CreateNewItemCommand;
 using StdCatalog.Persistence.Repositories;
 using StdCatalog.Domain.Entities;
+using Application.Items.Queries.GetItemQuery;
 
 
 
@@ -17,14 +18,13 @@ namespace StdCatalog.WebAPI.Controllers
     public class ItemController : ControllerBase
     {
         private readonly ICreateNewItemCommand _createNewItemCommand;
-        //private readonly IRepository<Item> _itemRepository;
-
-        public ItemController(ICreateNewItemCommand createNewItemCommand/*, IRepository<Item> itemRepository */)
+        private readonly IGetItemQuery _getItemQuery;
+        
+        public ItemController(ICreateNewItemCommand createNewItemCommand, IGetItemQuery getItemQuery)
         {
-            //_itemRepository = itemRepository;
-
-            _createNewItemCommand = createNewItemCommand;
             
+            _createNewItemCommand = createNewItemCommand;
+            _getItemQuery = getItemQuery;
         }
 
         // GET: api/<Item>
@@ -36,9 +36,9 @@ namespace StdCatalog.WebAPI.Controllers
 
         // GET api/<Item>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public Item Get(Guid id)
         {
-            return "value";
+            return _getItemQuery.Execute(id);
         }
 
         // POST api/<Item>

@@ -1,3 +1,4 @@
+using Application.Items.Queries.GetItemQuery;
 using StdCatalog.Application.Items.Commands.CreateNewItemCommand;
 using StdCatalog.Domain.Entities;
 using StdCatalog.Persistence.Repositories;
@@ -14,6 +15,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IRepository<Item>, ItemRepositorytoFile>();
 builder.Services.AddScoped<ICreateNewItemCommand,CreateNewItemCommand>();
+builder.Services.AddScoped<IGetItemQuery, GetItemQuery>();
 
 
 
