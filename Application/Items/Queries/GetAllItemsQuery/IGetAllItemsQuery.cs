@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StdCatalog.Application.Items.Queries.GetItemQuery
+namespace StdCatalog.Application.Items.Queries.GetAllItemsQuery
 {
-    public interface IGetItemQuery
+    public interface IGetAllItemsQuery
     {
-        Item Execute(Guid id);
+        public IEnumerable<Item> Execute();
     }
 }

@@ -6,21 +6,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StdCatalog.Application.Items.Queries.GetItemQuery
+namespace StdCatalog.Application.Items.Queries.GetAllItemsQuery
 {
-    public class GetItemQuery : IGetItemQuery
+    public class GetAllItemsQuery : IGetAllItemsQuery
     {
 
         private readonly IRepository<Item> _itemRepository;
 
-        public GetItemQuery(IRepository<Item> itemRepository)
+        public GetAllItemsQuery(IRepository<Item> itemRepository)
         {
             _itemRepository = itemRepository;
         }
 
-        public Item Execute(Guid id)
+        public IEnumerable<Item> Execute()
         {
-            return _itemRepository.Get(id);
+            return _itemRepository.GetAll();
         }
+
     }
 }

@@ -13,10 +13,20 @@ namespace StdCatalog.Persistence.Repositories.Items
     public class ItemRepositorytoFile : IRepository<Item>
     {
         private readonly IConfiguration _configuration;
+        private readonly IEntityToFile _entityTofile;
 
-        public ItemRepositorytoFile(IConfiguration configuration)
+        public ItemRepositorytoFile(IConfiguration configuration, IEntityToFile entityTofile)
         {
             _configuration= configuration;
+            _entityTofile = entityTofile;
+
+        }
+
+
+        private void UpdateCreateItem(Item entity)
+        {
+
+            _entityTofile.Write<Item>(entity);
 
         }
 
@@ -27,27 +37,24 @@ namespace StdCatalog.Persistence.Repositories.Items
 
         public Item Get(Guid id)
         {
-            WriteToFile x = new WriteToFile(_configuration);
 
-            return x.Read<Item>("ItemRepository", id);
+            return _entityTofile.Read<Item>(id);
 
         }
 
         public IEnumerable<Item> GetAll()
         {
-            throw new NotImplementedException();
+            return _entityTofile.ReadAll<Item>();
         }
 
         public void Insert(Item entity)
         {
-            WriteToFile x = new WriteToFile(_configuration);
-
-            x.Execute<Item>("ItemRepository", entity);
+            UpdateCreateItem(entity);
         }
 
         public void Update(Item entity)
         {
-            throw new NotImplementedException();
+            UpdateCreateItem(entity);
         }
     }
 }
